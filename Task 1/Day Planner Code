@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day Planner</title>
+  
+  <!-- External styles -->
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f7fb;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #333;
+    }
+
+    .planner-container {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+      width: 400px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      color: #0077cc;
+    }
+
+    .input-container {
+      display: flex;
+      margin-bottom: 20px;
+    }
+
+    input[type="text"] {
+      flex: 1;
+      padding: 10px;
+      font-size: 16px;
+      border: 2px solid #ddd;
+      border-radius: 5px;
+    }
+
+    button {
+      background-color: #0077cc;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+
+    button:hover {
+      background-color: #005fa3;
+    }
+
+    .task-list {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .task-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #f9f9f9;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      padding: 10px;
+      font-size: 18px;
+      transition: all 0.3s ease;
+    }
+
+    .task-item.complete {
+      text-decoration: line-through;
+      background-color: #d3ffd3;
+    }
+
+    .task-item button {
+      background-color: #ff4d4d;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .task-item button:hover {
+      background-color: #ff3333;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="planner-container">
+    <h1>Day Planner</h1>
+    <div class="input-container">
+      <input type="text" id="taskInput" placeholder="Enter your task...">
+      <button id="addTaskBtn">Add Task</button>
+    </div>
+    <ul class="task-list" id="taskList"></ul>
+  </div>
+
+  <script>
+    // Getting DOM elements
+    const taskInput = document.getElementById('taskInput');
+    const addTaskBtn = document.getElementById('addTaskBtn');
+    const taskList = document.getElementById('taskList');
+
+    // Event listener for adding a task
+    addTaskBtn.addEventListener('click', function() {
+      const taskText = taskInput.value.trim();
+      if (taskText) {
+        addTask(taskText);
+        taskInput.value = ''; // Clear input field after adding
+      }
+    });
+
+    // Function to add a task
+    function addTask(taskText) {
+      const taskItem = document.createElement('li');
+      taskItem.classList.add('task-item');
+
+      // Create the task text
+      const taskContent = document.createElement('span');
+      taskContent.textContent = taskText;
+
+      // Create the 'delete' button
+      const deleteBtn = document.createElement('button');
+      deleteBtn.textContent = 'Delete';
+      deleteBtn.addEventListener('click', function() {
+        taskItem.remove(); // Remove task when clicked
+      });
+
+      // Create the 'complete' button
+      const completeBtn = document.createElement('button');
+      completeBtn.textContent = 'Complete';
+      completeBtn.addEventListener('click', function() {
+        taskItem.classList.toggle('complete'); // Mark task as complete/incomplete
+      });
+
+      // Append buttons and task content to task item
+      taskItem.appendChild(taskContent);
+      taskItem.appendChild(completeBtn);
+      taskItem.appendChild(deleteBtn);
+
+      // Append the task item to the task list
+      taskList.appendChild(taskItem);
+    }
+
+    // Optional: Allow pressing Enter to add task
+    taskInput.addEventListener('keypress', function(event) {
+      if (event.key === 'Enter') {
+        addTaskBtn.click();
+      }
+    });
+  </script>
+
+</body>
+</html>Brainwave_Matrix_Intern
